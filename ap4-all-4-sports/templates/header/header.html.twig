@@ -4,13 +4,28 @@
 			<h1 class=" font-ultra text-4xl text-gray-300">All4Sports</h1>
 		</div>
 		<div class="flex justify-end items-center m-4 gap-4">
-			<input type="search" class=" w-[70%] mr-8 h-12 rounded-xl p-4" name="" id="">
+			<input type="search" class=" w-[70%] mr-8 h-12 rounded-xl p-4" name="" id="" placeholder="Rechercher un article...">
 			<a href="">
 				<img src="{{asset('icons/profile.png')}}" class=" bg-white rounded-lg max-h-24 h-16 p-2" alt="Cart image " srcset="">
 			</a>
 			<a href="">
 				<img src="{{asset('icons/cart.png')}}" class=" bg-white rounded-lg max-h-24 h-16 p-2" alt="Cart image " srcset="">
 			</a>
+		</div>
+	</div>
+	<div class="w-full bg-glaucous h-12 flex justify-start items-center p-4 gap-4">
+		<div class="bg-white rounded-xl p-1 flex gap-2">
+			<img src="{{ asset('icons/bars.png')}}" class=" h-6" alt="">
+			<p class="">
+				Tous les rayons</p>
+		</div>
+		<div class="bg-eggPlant text-white rounded-xl p-1 px-3 flex gap-2 hover:shadow-md hover:shadow-eggPlant hover:bg-eggPlantHover ease-in duration-150">
+			<p class="">
+				Tennis</p>
+		</div>
+		<div class=" bg-eggPlant text-white rounded-xl p-1 px-3 flex gap-2 hover:shadow-md hover:shadow-eggPlant hover:bg-eggPlantHover ease-in duration-150">
+			<p class="">
+				Foot-Ball</p>
 		</div>
 	</div>
 </header>
