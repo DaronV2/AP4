@@ -7,7 +7,8 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        "eggPlant" : "#564154",
+        "eggPlant" : "#086155",
+        "eggPlantHover" : "#05453c",
         "glaucous" : "#6B7FD7",
         "bitterSweet" : "#EF6461",
         "vividBlue" : "#51D6FF",
