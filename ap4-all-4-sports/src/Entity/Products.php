@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ProductsRepository;
+use App\Repository\RayonRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -23,11 +24,11 @@ class Products
 
     #[ORM\ManyToOne(inversedBy: 'products')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Fournisseur $id_fournisseur = null;
+    private ?Fournisseur $fournisseur = null;
 
     #[ORM\ManyToOne(inversedBy: 'products')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Rayon $id_rayon = null;
+    private ?Rayon $rayon = null;
 
     /**
      * @var Collection<int, Pictures>
@@ -46,6 +47,9 @@ class Products
      */
     #[ORM\OneToMany(targetEntity: Stocke::class, mappedBy: 'reference_product')]
     private Collection $stockes;
+
+    #[ORM\Column(length: 255)]
+    private ?string $name = null;
 
     public function __construct()
     {
@@ -83,26 +87,25 @@ class Products
         return $this;
     }
 
-    public function getIdFournisseur(): ?Fournisseur
+    public function getFournisseur(): ?Fournisseur
     {
-        return $this->id_fournisseur;
+        return $this->fournisseur;
     }
 
-    public function setIdFournisseur(?Fournisseur $id_fournisseur): static
+    public function setFournisseur(?Fournisseur $id_fournisseur): static
     {
-        $this->id_fournisseur = $id_fournisseur;
-
+        $this->fournisseur = $id_fournisseur;
         return $this;
     }
 
-    public function getIdRayon(): ?Rayon
+    public function getRayon(): ?Rayon
     {
-        return $this->id_rayon;
+        return $this->rayon;
     }
 
-    public function setIdRayon(?Rayon $id_rayon): static
+    public function setRayon(?Rayon $id_rayon): static
     {
-        $this->id_rayon = $id_rayon;
+        $this->rayon = $id_rayon;
 
         return $this;
     }
@@ -190,6 +193,18 @@ class Products
                 $stocke->setReferenceProduct(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): static
+    {
+        $this->name = $name;
 
         return $this;
     }
