@@ -3,6 +3,7 @@ module.exports = {
   content: [
     "./assets/**/*.js",
     "./templates/**/*.html.twig",
+     "./node_modules/flowbite/**/*.js"
   ],
   theme: {
     extend: {
@@ -10,6 +11,7 @@ module.exports = {
         "eggPlant" : "#086155",
         "eggPlantHover" : "#05453c",
         "glaucous" : "#6B7FD7",
+        "glaucousHover" : "#465491",
         "bitterSweet" : "#EF6461",
         "vividBlue" : "#51D6FF",
       },
@@ -18,5 +20,7 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require('flowbite/plugin') 
+  ],
 }
