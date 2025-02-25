@@ -21,7 +21,7 @@ class Rayon
     /**
      * @var Collection<int, Products>
      */
-    #[ORM\OneToMany(targetEntity: Products::class, mappedBy: 'id_rayon')]
+    #[ORM\OneToMany(targetEntity: Products::class, mappedBy: 'rayon')]
     private Collection $products;
 
     public function __construct()
@@ -58,7 +58,7 @@ class Rayon
     {
         if (!$this->products->contains($product)) {
             $this->products->add($product);
-            $product->setIdRayon($this);
+            $product->setRayon($this);
         }
 
         return $this;
@@ -68,8 +68,8 @@ class Rayon
     {
         if ($this->products->removeElement($product)) {
             // set the owning side to null (unless already changed)
-            if ($product->getIdRayon() === $this) {
-                $product->setIdRayon(null);
+            if ($product->getRayon() === $this) {
+                $product->setRayon(null);
             }
         }
 
