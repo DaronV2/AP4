@@ -8,39 +8,43 @@
 
 	<div class="example-wrapper bg-gray-300 h-screen">
 		<div class=" w-full h-full p-4 grid grid-rows-4 grid-cols-4 gap-2">
-			<div class=" h-64">
-				<div class="w-full bg-glaucous rounded-xl grid grid-rows-3 h-64 shadow-sm shadow-black">
-					<div class="flex justify-end p-4 row-span-2	grid grid-cols-[1.5fr,0.5fr]" id="top">
-						<div>
-							<img src="{{asset('/icons/raquetter.png')}}" alt="" class="max-h-[9rem] w-auto">
-						</div>
-						<div class=" flex justify-end">
-							<div class="bg-eggPlant w-20 h-10 rounded-xl flex justify-center items-center shadow-md shadow-eggPlantHover">
-								<h1 class=" text-white font-semibold text-md">Tennis</h1>
+			{% for produit in produits %}
+				<div class=" h-64">
+					<a href="{{ path('app_products_show', {'id' : produit.id}) }}" class=" hover:brightness-[0.70] ease-out duration-150">
+						<div class="w-full bg-glaucous rounded-xl grid grid-rows-3 h-64 shadow-sm shadow-black">
+							<div class="flex justify-end p-4 row-span-2	grid grid-cols-[1.5fr,0.5fr]" id="top">
+								<div>
+									<img src="{{asset('/icons/raquetter.png')}}" alt="" class="max-h-[9rem] w-auto">
+								</div>
+								<div class=" flex justify-end">
+									<div class="bg-eggPlant w-20 h-10 rounded-xl flex justify-center items-center shadow-md shadow-eggPlantHover">
+										<h1 class=" text-white font-semibold text-md">{{ produit.rayon.nom }}</h1>
+									</div>
+								</div>
+							</div>
+							<div id="bottom" class=" grid-rows-1 bg-white rounded-b-xl grid grid-cols-2 px-2">
+								<div class=" flex-col flex">
+									<h1 class=" text-xl font-semibold">
+										{{ produit.name }}
+									</h1>
+									<h2 class=" text-gray-600 font-semibold	h-auto">
+										Marque : {{ produit.fournisseur.name }}</h2>
+									<div class="flex h-5 gap-2">
+										<img src="{{asset('/icons/star.svg')}}" alt="" class="h-5 w-auto">
+										<img src="{{asset('/icons/star.svg')}}" alt="" class="h-5 w-auto">
+										<img src="{{asset('/icons/star.svg')}}" alt="" class="h-5 w-auto">
+										<img src="{{asset('/icons/star.svg')}}" alt="" class="h-5 w-auto">
+										<img src="{{asset('/icons/star.svg')}}" alt="" class="h-5 w-auto">
+									</div>
+								</div>
+								<div class="p-2 flex items-start justify-end">
+									<h1 class=" text-red-600 font-bold text-2xl"> {{ produit.pricettc }}€</h1>
+								</div>
 							</div>
 						</div>
-					</div>
-					<div id="bottom" class=" grid-rows-1 bg-white rounded-b-xl grid grid-cols-2 px-2">
-						<div class=" flex-col flex">
-							<h1 class=" text-xl font-semibold">
-								Raquette de tennis
-							</h1>
-							<h2 class=" text-gray-600 font-semibold	h-auto">
-								Marque : Décathlon</h2>
-							<div class="flex h-5 gap-2">
-								<img src="{{asset('/icons/star.svg')}}" alt="" class="h-5 w-auto">
-								<img src="{{asset('/icons/star.svg')}}" alt="" class="h-5 w-auto">
-								<img src="{{asset('/icons/star.svg')}}" alt="" class="h-5 w-auto">
-								<img src="{{asset('/icons/star.svg')}}" alt="" class="h-5 w-auto">
-								<img src="{{asset('/icons/star.svg')}}" alt="" class="h-5 w-auto">
-							</div>
-						</div>
-						<div class="p-2 flex items-start justify-end">
-							<h1 class=" text-red-600 font-bold text-2xl">99.99€</h1>
-						</div>
-					</div>
+					</a>
 				</div>
-			</div>
+			{% endfor %}
 		</div>
 	</div>
 {% endblock %}
