@@ -51,6 +51,9 @@ class Products
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
+    #[ORM\Column]
+    private ?int $rating = null;
+
     public function __construct()
     {
         $this->pictures = new ArrayCollection();
@@ -205,6 +208,18 @@ class Products
     public function setName(string $name): static
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getRating(): ?int
+    {
+        return $this->rating;
+    }
+
+    public function setRating(int $rating): static
+    {
+        $this->rating = $rating;
 
         return $this;
     }
