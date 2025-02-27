@@ -4,7 +4,8 @@
 {% endblock %}
 
 {% block body %}
-	{% include 'header/header.html.twig' %}
+	{# {% include 'header/header.html.twig' %} #}
+	{{ render(path('app_header')) }}
 
 	<div class="example-wrapper bg-gray-300 h-screen">
 		<div class=" w-full h-full p-4 grid grid-rows-4 grid-cols-4 gap-2">
