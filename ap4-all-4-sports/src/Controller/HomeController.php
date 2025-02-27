@@ -18,4 +18,14 @@ final class HomeController extends AbstractController
             'controller_name' => 'HomeController',
         ]);
     }
+
+    #[Route('/home/rayon/{id}', name: 'app_homepage')]
+    public function indexRayon(ProductsRepository $prodRepo, int $id): Response
+    {
+        $produits = $prodRepo->findBy(['id' => $id]);
+        return $this->render('home/index.html.twig', [
+            'produits' => $produits,
+            'controller_name' => 'HomeController',
+        ]);
+    }
 }

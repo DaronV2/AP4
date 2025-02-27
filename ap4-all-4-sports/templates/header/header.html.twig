@@ -19,13 +19,12 @@
 			<p class="">
 				Tous les rayons</p>
 		</div>
-		<div class="bg-eggPlant text-white rounded-xl p-1 px-3 flex gap-2 hover:shadow-md hover:shadow-eggPlant hover:bg-eggPlantHover ease-in duration-150">
-			<p class="">
-				Tennis</p>
+		{% for rayon in rayons %}
+			<div class=" bg-eggPlant text-white rounded-xl p-1 px-3 flex gap-2 hover:shadow-md hover:shadow-eggPlant hover:bg-eggPlantHover ease-in duration-150">
+			<a href="{{path('app_homepage', {'id': rayon.id})}}" class="">
+				{{ rayon.nom }}</a>
 		</div>
-		<div class=" bg-eggPlant text-white rounded-xl p-1 px-3 flex gap-2 hover:shadow-md hover:shadow-eggPlant hover:bg-eggPlantHover ease-in duration-150">
-			<p class="">
-				Foot-Ball</p>
-		</div>
+		{% endfor %}
+
 	</div>
 </header>
