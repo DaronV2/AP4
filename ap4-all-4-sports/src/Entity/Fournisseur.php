@@ -58,7 +58,7 @@ class Fournisseur
     {
         if (!$this->products->contains($product)) {
             $this->products->add($product);
-            $product->setIdFournisseur($this);
+            $product->setFournisseur($this);
         }
 
         return $this;
@@ -68,8 +68,8 @@ class Fournisseur
     {
         if ($this->products->removeElement($product)) {
             // set the owning side to null (unless already changed)
-            if ($product->getIdFournisseur() === $this) {
-                $product->setIdFournisseur(null);
+            if ($product->getFournisseur() === $this) {
+                $product->setFournisseur(null);
             }
         }
 
