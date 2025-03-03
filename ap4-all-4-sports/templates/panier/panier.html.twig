@@ -1,0 +1,97 @@
+{# templates/panier/panier.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block body %}
+{% include 'header/header.html.twig' %}
+    <div class="w-full min-h-screen flex justify-center items-start py-8 bg-gray-100">
+        <div class="w-full max-w-7xl flex flex-col lg:flex-row gap-6 bg-white p-8 rounded-lg shadow-lg border border-gray-300">
+            <div class="w-full lg:w-3/4">
+                <h1 class="text-4xl font-extrabold mb-6 text-center text-gray-800">🛒 Mon Panier</h1>
+                
+                {% set panier = {
+                    'items': [
+                        {
+                            'product': {
+                                'name': 'Chaussures de sport',
+                                'price': 59.99,
+                                'image': 'https://img.freepik.com/psd-gratuit/chaussures-course-sport-fond-transparent_84443-1608.jpg'
+                            },
+                            'quantity': 2
+                        },
+                        {
+                            'product': {
+                                'name': 'Lot de 2 Tshirts',
+                                'price': 29.99,
+                                'image': 'https://img.freepik.com/psd-gratuit/modele-vue-face-t-shirt-blanc-noir-isole-vierge_1409-3388.jpg'
+                            },
+                            'quantity': 1
+                        }
+                    ],
+                    'total': 149.97,
+                    'livraison': 5.99,
+                    'retrait_magasin': 0.00
+                } %}
+                
+                {% if panier.items|length > 0 %}
+                    <table class="w-full border-collapse text-gray-700">
+                        <thead>
+                            <tr class="border-b bg-gray-300 text-gray-900">
+                                <th class="text-left py-3 px-4">Produit</th>
+                                <th class="text-center py-3 px-4">Quantité</th>
+                                <th class="text-right py-3 px-4">Prix Unitaire</th>
+                                <th class="text-right py-3 px-4">Total</th>
+                                <th class="text-center py-3 px-4">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in panier.items %}
+                                <tr class="border-b hover:bg-gray-100">
+                                    <td class="flex items-center py-4 px-4 gap-4">
+                                        <img src="{{ item.product.image }}" alt="{{ item.product.name }}" class="w-20 h-20 object-cover rounded-md shadow">
+                                        <span class="text-lg font-semibold">{{ item.product.name }}</span>
+                                    </td>
+                                    <td class="text-center py-4">
+                                        <div class="flex items-center justify-center gap-2">
+                                            <button class="px-3 py-1 bg-gray-400 text-white rounded hover:bg-gray-500 flex items-center justify-center" onclick="changeQuantity({{ loop.index }}, -1)">◀</button>
+                                            <span id="quantity-{{ loop.index }}" class="text-lg">{{ item.quantity }}</span>
+                                            <button class="px-3 py-1 bg-gray-400 text-white rounded hover:bg-gray-500 flex items-center justify-center" onclick="changeQuantity({{ loop.index }}, 1)">▶</button>
+                                        </div>
+                                    </td>
+                                    <td class="text-right py-4 px-4 text-lg">{{ item.product.price|number_format(2, ',', ' ') }} €</td>
+                                    <td class="text-right py-4 px-4 text-lg">{{ (item.product.price * item.quantity)|number_format(2, ',', ' ') }} €</td>
+                                    <td class="text-center py-4 px-4">
+                                        <button class="bg-red-500 text-black p-2 rounded-lg hover:bg-red-600 transition shadow" onclick="removeItem({{ loop.index }})">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
+                                                <path fill-rule="evenodd" d="M6 2a1 1 0 011-1h6a1 1 0 011 1v1h5a1 1 0 110 2h-1.05l-.95 11a2 2 0 01-2 2H5a2 2 0 01-2-2l-.95-11H1a1 1 0 110-2h5V2zm2 2v12h1V4H8zm3 0v12h1V4h-1z" clip-rule="evenodd" />
+                                            </svg>
+                                        </button>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p class="text-center text-gray-600 text-xl">Votre panier est vide.</p>
+                {% endif %}
+            </div>
+            
+            <div class="w-full lg:w-1/4 border-t-4 border-black pt-6 px-6">
+                <h2 class="text-xl font-semibold mb-4 text-gray-800">📦 Résumé de la commande</h2>
+                <p class="text-lg font-medium">Sous-total: {{ panier.total|number_format(2, ',', ' ') }} €</p>
+                <p class="text-lg font-medium">Frais de livraison: {{ panier.livraison|number_format(2, ',', ' ') }} €</p>
+                <p class="text-lg font-bold mt-4 text-gray-900">Total à payer: {{ (panier.total + panier.livraison)|number_format(2, ',', ' ') }} €</p>
+                <a href="#" class="block w-full text-center mt-4 bg-green-600 text-white text-lg px-6 py-3 rounded-lg hover:bg-green-700 transition shadow-lg border-4 border-green-800 flex items-center justify-center">✅ Passer la commande</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function changeQuantity(index, amount) {
+            let quantityElement = document.getElementById('quantity-' + index);
+            let currentQuantity = parseInt(quantityElement.innerText);
+            if (currentQuantity + amount > 0) {
+                quantityElement.innerText = currentQuantity + amount;
+            }
+        }
+    </script>
+{% endblock %}
