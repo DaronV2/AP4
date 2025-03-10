@@ -1,14 +1,20 @@
 <header>
 	<div class=" w-full h-24 bg-eggPlant grid grid-cols-2">
 		<div class=" flex justify-start items-center m-4">
-			<h1 class=" font-ultra text-4xl text-gray-300">All4Sports</h1>
+			<a href="{{path('app_home')}}" class=" font-ultra text-4xl text-gray-300 hover:cursor-pointer">All4Sports</a>
 		</div>
 		<div class="flex justify-end items-center m-4 gap-4">
 			<input type="search" class=" w-[70%] mr-8 h-12 rounded-xl p-4" name="" id="" placeholder="Rechercher un article...">
-			<a href="">
-				<img src="{{asset('icons/profile.png')}}" class=" bg-white rounded-lg max-h-24 h-16 p-2" alt="Cart image " srcset="">
-			</a>
-			<a href="">
+			{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+				<a href="{{path('app_logout')}}">
+					<img src="{{asset('icons/profile.png')}}" class=" bg-white rounded-lg max-h-24 h-16 p-2" alt="Cart image " srcset="">
+				</a>
+			{% else %}
+				<a href="{{path('app_register')}}">
+					<img src="{{asset('icons/profile.png')}}" class=" bg-white rounded-lg max-h-24 h-16 p-2" alt="Cart image " srcset="">
+				</a>
+			{% endif %}
+			<a href="{{path('panier_index')}}">
 				<img src="{{asset('icons/cart.png')}}" class=" bg-white rounded-lg max-h-24 h-16 p-2" alt="Cart image " srcset="">
 			</a>
 		</div>
@@ -21,9 +27,9 @@
 		</div>
 		{% for rayon in rayons %}
 			<div class=" bg-eggPlant text-white rounded-xl p-1 px-3 flex gap-2 hover:shadow-md hover:shadow-eggPlant hover:bg-eggPlantHover ease-in duration-150">
-			<a href="{{path('app_homepage', {'id': rayon.id})}}" class="">
-				{{ rayon.nom }}</a>
-		</div>
+				<a href="{{path('app_homepage', {'id': rayon.id})}}" class="">
+					{{ rayon.nom }}</a>
+			</div>
 		{% endfor %}
 
 	</div>
