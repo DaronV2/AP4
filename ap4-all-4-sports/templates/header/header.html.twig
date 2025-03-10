@@ -7,7 +7,7 @@
 			<input type="search" class=" w-[70%] mr-8 h-12 rounded-xl p-4" name="" id="" placeholder="Rechercher un article...">
 			{% if is_granted('IS_AUTHENTICATED_FULLY') %}
 				<a href="{{path('app_logout')}}">
-					<img src="{{asset('icons/profile.png')}}" class=" bg-white rounded-lg max-h-24 h-16 p-2" alt="Cart image " srcset="">
+					<img src="{{asset('icons/logout.png')}}" class=" bg-white rounded-lg max-h-24 h-16 p-2" alt="Cart image " srcset="">
 				</a>
 			{% else %}
 				<a href="{{path('app_register')}}">
