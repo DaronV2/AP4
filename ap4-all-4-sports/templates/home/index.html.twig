@@ -8,6 +8,11 @@
 	{{ render(path('app_header')) }}
 
 	<div class="example-wrapper bg-gray-300 h-screen">
+		{% if displayMessage is defined %}
+			<div class=" bg-gray-400 rounded-xl h-16 m-4 p-2 font-bold items-center flex ">
+				<h1 class=" text-xl">{{displayMessage}}</h1>
+			</div>
+		{% endif %}
 		<div class=" w-full h-full p-4 grid grid-rows-4 grid-cols-4 gap-2">
 			{% for produit in produits %}
 				<div class=" h-64">
