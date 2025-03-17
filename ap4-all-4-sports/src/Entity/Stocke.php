@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\StockeRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Modules;
 
 #[ORM\Entity(repositoryClass: StockeRepository::class)]
 class Stocke
@@ -21,6 +22,18 @@ class Stocke
 
     #[ORM\ManyToOne(inversedBy: 'stockes')]
     private ?Warehouse $id_warehouse = null;
+
+    #[ORM\Column(length: 255, type: 'string', enumType: Modules::class)]
+    private ?string $module = null;
+
+    #[ORM\Column(length: 255, type: 'string', enumType: Modules::class)]
+    private ?string $aislse = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $rowWarehouse = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $section = null;
 
     public function getId(): ?int
     {
@@ -59,6 +72,54 @@ class Stocke
     public function setIdWarehouse(?Warehouse $id_warehouse): static
     {
         $this->id_warehouse = $id_warehouse;
+
+        return $this;
+    }
+
+    public function getModule(): ?string
+    {
+        return $this->module;
+    }
+
+    public function setModule(string $module): static
+    {
+        $this->module = $module;
+
+        return $this;
+    }
+
+    public function getAislse(): ?string
+    {
+        return $this->aislse;
+    }
+
+    public function setAislse(string $aislse): static
+    {
+        $this->aislse = $aislse;
+
+        return $this;
+    }
+
+    public function getRowWarehouse(): ?string
+    {
+        return $this->rowWarehouse;
+    }
+
+    public function setRowWarehouse(string $rowWarehouse): static
+    {
+        $this->rowWarehouse = $rowWarehouse;
+
+        return $this;
+    }
+
+    public function getSection(): ?string
+    {
+        return $this->section;
+    }
+
+    public function setSection(string $section): static
+    {
+        $this->section = $section;
 
         return $this;
     }
