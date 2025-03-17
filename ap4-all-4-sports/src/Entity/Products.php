@@ -223,4 +223,19 @@ class Products
 
         return $this;
     }
+
+    public function toArray()
+    {
+        return
+            [
+                'id' => $this->getId(),
+                'price_ttc' => $this->getPriceTtc(),
+                'description' => $this->getDescription(),
+                'fournisseur' => $this->getFournisseur(),
+                'rayon' => $this->getRayon(),
+                'pictures' => $this->getPictures(),
+                'name' => $this->getName(),
+                'rating' => $this->getRating()
+            ];
+    }
 }
