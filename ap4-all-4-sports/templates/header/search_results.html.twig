@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Résultats de la recherche{% endblock %}
+
+{% block body %}
+    <h1 class="text-xl font-bold my-4">Résultats pour "{{ query }}"</h1>
+
+    {% if produits is empty %}
+        <p class="text-gray-600">Aucun produit trouvé.</p>
+    {% else %}
+        <div class="grid grid-cols-4 gap-4">
+            {% for produit in produits %}
+                <div class="border p-4 rounded-lg shadow">
+                    <a href="{{ path('app_products_show', {'id': produit.id}) }}">
+                        <h2 class="text-lg font-semibold">{{ produit.name }}</h2>
+                    </a>
+                    <p>Marque : {{ produit.fournisseur.name }}</p>
+                    <p class="text-red-600 font-bold">{{ produit.pricettc }}€</p>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}
