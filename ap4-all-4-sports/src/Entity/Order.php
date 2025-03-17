@@ -36,6 +36,9 @@ class Order
     #[ORM\JoinColumn(nullable: false)]
     private ?User $email_client = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $status = null;
+
     public function __construct()
     {
         $this->reference_product = new ArrayCollection();
@@ -114,6 +117,18 @@ class Order
     public function setEmailClient(?User $email_client): static
     {
         $this->email_client = $email_client;
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): static
+    {
+        $this->status = $status;
 
         return $this;
     }

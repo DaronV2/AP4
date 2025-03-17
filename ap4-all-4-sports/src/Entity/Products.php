@@ -54,6 +54,9 @@ class Products
     #[ORM\Column]
     private ?int $rating = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $code_product = null;
+
     public function __construct()
     {
         $this->pictures = new ArrayCollection();
@@ -237,5 +240,17 @@ class Products
                 'name' => $this->getName(),
                 'rating' => $this->getRating()
             ];
+    }
+
+    public function getCodeProduct(): ?string
+    {
+        return $this->code_product;
+    }
+
+    public function setCodeProduct(string $code_product): static
+    {
+        $this->code_product = $code_product;
+
+        return $this;
     }
 }
