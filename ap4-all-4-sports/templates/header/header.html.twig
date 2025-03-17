@@ -1,30 +1,23 @@
 <header>
-	<div class=" w-full h-24 bg-eggPlant grid grid-cols-2">
-		<div class=" flex justify-start items-center m-4">
-			<h1 class=" font-ultra text-4xl text-gray-300">All4Sports</h1>
+	<div class="w-full h-24 bg-eggPlant grid grid-cols-2">
+		<div class="flex justify-start items-center m-4">
+			<h1 class="font-ultra text-4xl text-gray-300">All4Sports</h1>
 		</div>
 		<div class="flex justify-end items-center m-4 gap-4">
-			<input type="search" class=" w-[70%] mr-8 h-12 rounded-xl p-4" name="" id="" placeholder="Rechercher un article...">
+			<form method="GET" action="{{ path('app_search') }}" class="w-[70%] mr-8 flex">
+				<input type="search" name="q" 
+					   class="w-full h-12 rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-blue-500" 
+					   placeholder="Rechercher un article..."
+					   value="{{ app.request.query.get('q') }}">
+				<button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 ml-2">
+					🔍
+				</button>
+			</form>
 			<a href="">
-				<img src="{{asset('icons/profile.png')}}" class=" bg-white rounded-lg max-h-24 h-16 p-2" alt="Cart image " srcset="">
+				<img src="{{ asset('icons/profile.png') }}" class="bg-white rounded-lg max-h-24 h-16 p-2" alt="Profile">
 			</a>
 			<a href="">
-				<img src="{{asset('icons/cart.png')}}" class=" bg-white rounded-lg max-h-24 h-16 p-2" alt="Cart image " srcset="">
+				<img src="{{ asset('icons/cart.png') }}" class="bg-white rounded-lg max-h-24 h-16 p-2" alt="Cart">
 			</a>
 		</div>
-	</div>
-	<div class="w-full bg-glaucous h-12 flex justify-start items-center p-4 gap-4">
-		<div class="bg-white rounded-xl p-1 flex gap-2">
-			<img src="{{ asset('icons/bars.png')}}" class=" h-6" alt="">
-			<p class="">
-				Tous les rayons</p>
-		</div>
-		{% for rayon in rayons %}
-			<div class=" bg-eggPlant text-white rounded-xl p-1 px-3 flex gap-2 hover:shadow-md hover:shadow-eggPlant hover:bg-eggPlantHover ease-in duration-150">
-			<a href="{{path('app_homepage', {'id': rayon.id})}}" class="">
-				{{ rayon.nom }}</a>
-		</div>
-		{% endfor %}
-
-	</div>
 </header>
