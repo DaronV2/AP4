@@ -29,9 +29,6 @@ class Order
     #[ORM\ManyToMany(targetEntity: Products::class, inversedBy: 'orders')]
     private Collection $reference_product;
 
-    #[ORM\Column]
-    private ?int $quantite = null;
-
     #[ORM\ManyToOne(inversedBy: 'orders')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $email_client = null;
@@ -93,18 +90,6 @@ class Order
     public function removeReferenceProduct(Products $referenceProduct): static
     {
         $this->reference_product->removeElement($referenceProduct);
-
-        return $this;
-    }
-
-    public function getQuantite(): ?int
-    {
-        return $this->quantite;
-    }
-
-    public function setQuantite(int $quantite): static
-    {
-        $this->quantite = $quantite;
 
         return $this;
     }
