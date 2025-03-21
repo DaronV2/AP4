@@ -57,11 +57,18 @@ class Products
     #[ORM\Column(length: 255)]
     private ?string $code_product = null;
 
+    /**
+     * @var Collection<int, IsOrdered>
+     */
+    #[ORM\ManyToMany(targetEntity: IsOrdered::class, mappedBy: 'products')]
+    private Collection $isOrdereds;
+
     public function __construct()
     {
         $this->pictures = new ArrayCollection();
         $this->orders = new ArrayCollection();
         $this->stockes = new ArrayCollection();
+        $this->isOrdereds = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -250,6 +257,33 @@ class Products
     public function setCodeProduct(string $code_product): static
     {
         $this->code_product = $code_product;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, IsOrdered>
+     */
+    public function getIsOrdereds(): Collection
+    {
+        return $this->isOrdereds;
+    }
+
+    public function addIsOrdered(IsOrdered $isOrdered): static
+    {
+        if (!$this->isOrdereds->contains($isOrdered)) {
+            $this->isOrdereds->add($isOrdered);
+            $isOrdered->addProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIsOrdered(IsOrdered $isOrdered): static
+    {
+        if ($this->isOrdereds->removeElement($isOrdered)) {
+            $isOrdered->removeProduct($this);
+        }
 
         return $this;
     }

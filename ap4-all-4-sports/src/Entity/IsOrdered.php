@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\IsOrderedRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: IsOrderedRepository::class)]
@@ -13,32 +15,24 @@ class IsOrdered
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
-    private ?int $quantity = null;
-
     #[ORM\OneToOne(inversedBy: 'isOrdered', cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
     private ?Order $command = null;
 
-    #[ORM\OneToOne(inversedBy: 'isOrdered', cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Products $product = null;
+    /**
+     * @var Collection<int, Products>
+     */
+    #[ORM\ManyToMany(targetEntity: Products::class, inversedBy: 'isOrdereds')]
+    private Collection $products;
+
+    public function __construct()
+    {
+        $this->products = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getQuantity(): ?int
-    {
-        return $this->quantity;
-    }
-
-    public function setQuantity(int $quantity): static
-    {
-        $this->quantity = $quantity;
-
-        return $this;
     }
 
     public function getCommand(): ?Order
@@ -53,14 +47,26 @@ class IsOrdered
         return $this;
     }
 
-    public function getProduct(): ?Products
+    /**
+     * @return Collection<int, Products>
+     */
+    public function getProducts(): Collection
     {
-        return $this->product;
+        return $this->products;
     }
 
-    public function setProduct(Products $product): static
+    public function addProduct(Products $product): static
     {
-        $this->product = $product;
+        if (!$this->products->contains($product)) {
+            $this->products->add($product);
+        }
+
+        return $this;
+    }
+
+    public function removeProduct(Products $product): static
+    {
+        $this->products->removeElement($product);
 
         return $this;
     }
