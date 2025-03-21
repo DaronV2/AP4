@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Aisle;
 use App\Repository\StockeRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Modules;
@@ -24,10 +25,10 @@ class Stocke
     private ?Warehouse $id_warehouse = null;
 
     #[ORM\Column(length: 255, type: 'string', enumType: Modules::class)]
-    private ?string $module = null;
+    private ?Modules $module = null;
 
-    #[ORM\Column(length: 255, type: 'string', enumType: Modules::class)]
-    private ?string $aislse = null;
+    #[ORM\Column(length: 255, type: 'string', enumType: Aisle::class)]
+    private ?Aisle $aislse = null;
 
     #[ORM\Column(length: 255)]
     private ?string $rowWarehouse = null;
@@ -78,10 +79,10 @@ class Stocke
 
     public function getModule(): ?string
     {
-        return $this->module;
+        return $this->module->value;
     }
 
-    public function setModule(string $module): static
+    public function setModule(Modules $module): static
     {
         $this->module = $module;
 
@@ -90,10 +91,10 @@ class Stocke
 
     public function getAislse(): ?string
     {
-        return $this->aislse;
+        return $this->aislse->value;
     }
 
-    public function setAislse(string $aislse): static
+    public function setAislse(Aisle $aislse): static
     {
         $this->aislse = $aislse;
 
