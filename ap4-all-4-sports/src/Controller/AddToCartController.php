@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Products;
 use Symfony\Component\Routing\Attribute\Route;
 use App\Repository\ProductsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -9,12 +10,15 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
+use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Serializer\Exception\CircularReferenceException;
 
 class AddToCartController extends AbstractController
 {
 
     #[Route('/ajax/add', name: 'app_add_to_cart', methods: ['POST'])]
-    public function index(Request $request, ProductsRepository $prodRepo)
+    public function index(Request $request, ProductsRepository $prodRepo , SerializerInterface $serializer)
     {
         $content = $request->getContent();
         $data = json_decode($content, true);
@@ -41,9 +45,7 @@ class AddToCartController extends AbstractController
             // Réencoder le produit mis à jour
             $cart[$idProduct] = json_encode($existingProduct);
         } else {
-            // Ajouter le nouveau produit au panier
-            $productObj = $prodRepo->findOneBy(['id' => $idProduct]);
-            $cart[$idProduct] = json_encode(['product' => $productObj->toArray(), 'quantity' => $quantity]);
+            $cart[$idProduct] = json_encode(['product' => $idProduct, 'quantity' => $quantity]);
         }
         // Mettre à jour le panier dans la session
         $session->set('cart', $cart);
